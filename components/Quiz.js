@@ -15,7 +15,7 @@ export default class Quiz extends Component {
   }
 
   componentDidUpdate() {
-    //alert(`index=${this.state.index} n=${this.state.n} equal=${}`)
+    alert(`index=${this.state.index} n=${this.state.n}`)
 
     if (this.state.index === this.state.n) {
       clearLocalNotification();
