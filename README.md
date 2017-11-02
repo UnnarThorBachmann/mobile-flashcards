@@ -31,8 +31,11 @@ Files added to the project:
 * New.js - A component rendering a form for adding a new deck.
 * Quiz.js - A component for rendering the quiz from a single deck.
 
-### Other files added
-* helper.js - Handles the function calls to the AsyncStore.
+### utils
+* helper.js - Handles the function calls to the AsyncStore as well as functions for the local notifications. The Notification calls were influenced heavily by class videos.
+
+### styles
+* index.js - Added all styles to a single file to seperate concerns.
 
 
 ## How to run on a computer

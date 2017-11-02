@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "146723445697",
+    "firebase_url": "https://mobile-flashcards.firebaseio.com",
+    "project_id": "mobile-flashcards",
+    "storage_bucket": "mobile-flashcards.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146723445697:android:11ff33078f7ffa98",
+        "android_client_info": {
+          "package_name": "com.fcm.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146723445697-gon7dfgc19en9259gg4nc2jjcgpoa0mc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJysJESdec0gAwuoImmewrLH4ixBuXyMU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import styles from '../styles/';
+import {setLocalNotification,clearLocalNotification} from '../utils/api.js'
 
 export default class Quiz extends Component {
   constructor(props){
@@ -9,10 +11,8 @@ export default class Quiz extends Component {
                   n: this.props.navigation.state.params.questions.length,
                   score: 0
     };
-
-
   }
-  
+
   answer() {
     this.setState((state)=> {index: state.index + 1})
   }
@@ -21,7 +21,34 @@ export default class Quiz extends Component {
     const questions =this.props.navigation.state.params.questions;
     let {index,flip,n,score} = this.state;
     const finished = (n===index)? true:false;
-    if (finished) {
+
+
+    if (n === 0) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.header}>No cards in the deck!</Text>
+           
+         <TouchableOpacity style={styles.btnBack} onPress={()=> this.props.navigation.goBack()}>
+          <Text style={styles.btnText}>Back to Deck</Text>
+        </TouchableOpacity>
+        </View>
+      )
+
+    }
+    else if (finished) {
+      clearLocalNotification();
+      /*
+      from class.
+      Should be used to get local notifications daily.
+      let tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(20);
+      tomorrow.setMinutes(0);
+      setLocalNotification(tomorrow,'day');
+      */
+      setLocalNotification(Date.now() + 5*60*1000,'minute');
+      
+
       return (
         <View style={styles.container}>
           <Text style={styles.header}>Finished! {score} of {n}</Text>
@@ -82,66 +109,3 @@ export default class Quiz extends Component {
 }
 }
     
-    
-  
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  justifyContent: 'flex-start',
-    backgroundColor: '#fff',
-    alignItems: 'stretch',  
-  },
-  header: {
-   marginLeft: 10,
-   fontWeight: 'bold',
-   fontSize: 30
-  },
-  question: {
-    fontWeight: 'bold',
-    fontSize: 50,
-    textAlign: 'center',
-  },
-  answer: {
-    fontWeight: 'bold',
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  subtitle:  {
-    fontSize: 20,
-    color: 'red',
-    textAlign: 'center',
-  },
-  btnText: {
-    fontSize: 22,
-    color: 'white',
-    textAlign: 'center',
-  },
-  btnCorrect: {
-     marginTop: 10,
-     marginBottom: 10,
-     marginLeft: 30,
-     marginRight: 30,
-     backgroundColor: 'green',
-     padding: 10,
-     borderWidth: 1,
-   },
-   btnIncorrect: {
-     marginTop: 10,
-     marginBottom: 10,
-     marginLeft: 30,
-     marginRight: 30,
-     backgroundColor: 'red',
-     padding: 10,
-     borderWidth: 1,
-   },
-   btnBack: {
-     marginTop: 10,
-     marginBottom: 10,
-     marginLeft: 30,
-     marginRight: 30,
-     backgroundColor: 'black',
-     padding: 10,
-     borderWidth: 1,
-   },
-  
-});

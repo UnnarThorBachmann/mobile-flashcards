@@ -1,89 +1,49 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Animated} from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import Quiz from './Quiz.js';
 import AddCard from './AddCard.js';
 import {getDeck} from '../utils/api.js';
 import {connect} from 'react-redux';
+import styles from '../styles/';
 
 class Deck extends Component {
+
+    state = {
+          opacity: new Animated.Value(0),  
+      }
   
-  constuctor(props) {
-      this.state = {}
-    }
-  
-  /*
+
   componentDidMount() {
-    getDeck((data)=> {
-        let decks = JSON.parse(data);
-        let deck = decks[this.props.navigation.state.params.key];
-        if (deck === null)
-          deck = {};
-    this.setState(deck)});
-  }*/
+    Animated.timing(                  
+      this.state.opacity,            
+      {
+        toValue: 1,                   
+        duration: 5000,              
+      }
+    ).start();                        
+  }
   
 	render() {
     const deck = this.props.decks[this.props.navigation.state.params.key];
     const {title,questions} = deck;
-    //const {questions,title} = (this.state) ? this.state:{title: '',questions:[]};
-    //alert(JSON.stringify(this.props));
+    
 		return (
-      <View style={styles.container}>
+      <Animated.View style={{flex: 1, justifyContent: 'flex-start', backgroundColor: '#fff', 
+      alignItems: 'stretch', opacity: this.state.opacity}}>
        <Text style={[styles.header]}>{title}</Text>
-        <Text style={[styles.subtitle]}>{questions.length} cards</Text>
+        <Text style={[styles.subtitle2]}>{questions.length} cards</Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('AddCard',{title: title})}>
-          <Text style={[styles.androidBtnAdd]}>Add Card</Text>
+          <Text style={[styles.btnAdd]}>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz',{questions: questions})}>
-          <Text style={[styles.androidBtnQuiz]}>Start Quiz</Text>
+          <Text style={[styles.btnQuiz]}>Start Quiz</Text>
         </TouchableOpacity>
-    </View>
+    </Animated.View>
 		)
 	}
 
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  justifyContent: 'flex-start',
-    backgroundColor: '#fff',
-    alignItems: 'stretch',  
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 50,
-    textAlign: 'center',
-  },
-  subtitle:  {
-    fontSize: 20,
-    color: 'gray',
-    textAlign: 'center',
-  },
-  androidBtnAdd: {
-     marginTop: 10,
-     marginBottom: 10,
-     marginLeft: 30,
-     marginRight: 30,
-     backgroundColor: 'white',
-     padding: 10,
-     borderWidth: 1,
-     color: 'black',
-     fontSize: 22,
-   },
-  androidBtnQuiz: {
-     marginTop: 10,
-     marginBottom: 10,
-     marginLeft: 30,
-     marginRight: 30,
-     backgroundColor: 'black',
-     padding: 10,
-     borderWidth: 1,
-     color: 'white',
-     fontSize: 22,
-   },
-});
 
 const mapStateToProps = (state)=> ({
     decks: state

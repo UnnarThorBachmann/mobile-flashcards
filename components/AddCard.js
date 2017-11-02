@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity,TextInput} from 'react-native';
 import {addCardToDeck} from '../utils/api.js';
 import { connect } from 'react-redux';
 import {addCard} from '../actions';
-
+import styles from '../styles/';
 class AddCard extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +41,7 @@ class AddCard extends Component {
         </View>
         <View style={styles.textInputView}>
         <TouchableOpacity onPress={() => this.addCardToDeck()}>
-          <Text style={[styles.androidBtnSubmit]}>Submit</Text>
+          <Text style={[styles.btnSubmit]}>Submit</Text>
         </TouchableOpacity>
         </View>
         <Text>{this.state.submit}</Text>
@@ -52,45 +52,6 @@ class AddCard extends Component {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  justifyContent: 'flex-start',
-    backgroundColor: '#fff',
-    alignItems: 'stretch',  
-  },
-  textInputView: {
-    padding: 10
-  },
-  textInput: {
-    height: 40, 
-    borderColor: 'gray', 
-    borderWidth: 1,
-    padding: 10,
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 50,
-    textAlign: 'center',
-  },
-  textInputLabel: {
-    fontWeight: 'bold',
-    fontSize: 30,
-    textAlign: 'left',
-  },
-  subtitle:  {
-    fontSize: 20,
-    color: 'gray',
-    textAlign: 'center',
-  },
 
-  androidBtnSubmit: {
-     backgroundColor: 'black',
-     padding: 10,
-     borderWidth: 1,
-     color: 'white',
-     fontSize: 22,
-   },
-});
 
 export default connect()(AddCard)
