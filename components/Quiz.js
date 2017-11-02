@@ -6,17 +6,26 @@ import {setLocalNotification,clearLocalNotification} from '../utils/api.js'
 export default class Quiz extends Component {
   constructor(props){
     super(props);
-    this.state = {index: 0,
-                  flip: false,
-                  n: this.props.navigation.state.params.questions.length,
-                  score: 0
+    this.state = {
+      index: 0,
+      flip: false,
+      n: this.props.navigation.state.params.questions.length,
+      score: 0
     };
   }
 
-  answer() {
-    this.setState((state)=> {index: state.index + 1})
+  componentDidUpdate() {
+    //alert(`index=${this.state.index} n=${this.state.n} equal=${}`)
+
+    if (this.state.index === this.state.n) {
+      clearLocalNotification();
+      setLocalNotification(Date.now() + 5*60*1000,'minute');
+      
+    }
+
   }
-	render() {
+
+  render() {
     const disp_index = this.state.index + 1;
     const questions =this.props.navigation.state.params.questions;
     let {index,flip,n,score} = this.state;
@@ -36,19 +45,6 @@ export default class Quiz extends Component {
 
     }
     else if (finished) {
-      clearLocalNotification();
-      /*
-      from class.
-      Should be used to get local notifications daily.
-      let tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(20);
-      tomorrow.setMinutes(0);
-      setLocalNotification(tomorrow,'day');
-      */
-      setLocalNotification(Date.now() + 5*60*1000,'minute');
-      
-
       return (
         <View style={styles.container}>
           <Text style={styles.header}>Finished! {score} of {n}</Text>
@@ -89,16 +85,19 @@ export default class Quiz extends Component {
         </TouchableOpacity>
       </View>
       <View >
-        <TouchableOpacity style={styles.btnCorrect} onPress={()=> this.setState({index: index + 1,
+        <TouchableOpacity style={styles.btnCorrect} onPress={()=> this.setState({
+          index: index + 1,
           score: score + 1,
           flip: false 
-        })}
-        >
+          })
+        }>
           <Text style={styles.btnText}>Correct</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnIncorrect} onPress={()=> this.setState({index: index + 1,
+        <TouchableOpacity style={styles.btnIncorrect} onPress={()=> this.setState({
+          index: index + 1,
           flip: false
-        })}>
+        })
+        }>
           <Text style={styles.btnText}>Inorrect</Text>
         </TouchableOpacity>
       </View>
@@ -108,4 +107,3 @@ export default class Quiz extends Component {
 
 }
 }
-    

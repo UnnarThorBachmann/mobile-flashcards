@@ -8,9 +8,8 @@ export default class App extends React.Component {
   componentDidMount() {
       setLocalNotification(Date.now()+5000,'minute');
       //clearLocalNotification();
-    }
+  }
   render() {
-
     return (
       <Provider store={createStore(reducer)}>
         <MainNavigator/>

@@ -9,15 +9,13 @@ import styles from '../styles/';
 
 class Deck extends Component {
 
-    state = {
-          opacity: new Animated.Value(0),  
-      }
+  state = {
+        opacity: new Animated.Value(0),  
+  }
   
-
   componentDidMount() {
     Animated.timing(                  
-      this.state.opacity,            
-      {
+      this.state.opacity, {
         toValue: 1,                   
         duration: 5000,              
       }
@@ -30,8 +28,8 @@ class Deck extends Component {
     
 		return (
       <Animated.View style={{flex: 1, justifyContent: 'flex-start', backgroundColor: '#fff', 
-      alignItems: 'stretch', opacity: this.state.opacity}}>
-       <Text style={[styles.header]}>{title}</Text>
+        alignItems: 'stretch', opacity: this.state.opacity}}>
+        <Text style={[styles.header]}>{title}</Text>
         <Text style={[styles.subtitle2]}>{questions.length} cards</Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('AddCard',{title: title})}>
           <Text style={[styles.btnAdd]}>Add Card</Text>

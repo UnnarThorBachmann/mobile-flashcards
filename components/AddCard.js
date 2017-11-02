@@ -7,17 +7,24 @@ import styles from '../styles/';
 class AddCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {question: '',
-                  answer: '',
-                  title: this.props.navigation.state.params.title, 
-    };
+      const {title} = this.props.navigation.state.params;
+      this.state = {
+        question: '',
+        answer: '',
+        title: title, 
+      };
 
   }
+
   addCardToDeck() {
-    addCardToDeck({key: this.state.title, question: this.state.question, answer: this.state.answer});
-    this.props.dispatch(addCard({title: this.state.title, question: this.state.question, answer: this.state.answer}));
-    this.props.navigation.goBack();
+    const {title,question,answer} = this.state;
+    const {dispatch, navigation} = this.props;
+    
+    addCardToDeck({key: title, question: question, answer: answer});
+    dispatch(addCard({title: title, question: title, answer: answer}));
+    navigation.goBack();
   }
+
 	render() {
     const {title} = this.props.navigation.state.params;
 		return (

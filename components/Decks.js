@@ -8,43 +8,38 @@ import {setDecks} from '../actions';
 import styles from '../styles/';
 
 class Decks extends Component {
-   
-
-    componentDidMount() {
-        //AsyncStorage.clear();
-        getDecks((data)=> {
-          let decks = JSON.parse(data);
-          if (decks === null) {
-            decks = db
-          }
+  componentDidMount() {
+    //AsyncStorage.clear();
+    getDecks((data)=> {
+      let decks = JSON.parse(data);
+      if (decks === null) {
+        decks = db
+      }
           
-          this.props.dispatch(setDecks(decks));
-          return decks;
-        });
-
-    }
+      this.props.dispatch(setDecks(decks));
+        return decks;
+      });
+  }
 
   render() {
     const db = this.props.decks;
     return (
       <View style={[styles.container]}>
-      <ScrollView>
-      
-      {
-        Object.keys(db).map((key) => 
-        <TouchableOpacity style={styles.deck} key={key} onPress={() => this.props.navigation.navigate('Deck',{key: key})}>
-          <Text style={[styles.header]}>{db[key].title}</Text>
-          <Text style={[styles.subtitle2]}>{db[key].questions.length} cards</Text>
-        </TouchableOpacity>
-      )
-      }
-      </ScrollView>
+        <ScrollView>
+        {
+          Object.keys(db).map((key) => 
+            <TouchableOpacity style={styles.deck} key={key} onPress={() => this.props.navigation.navigate('Deck',{key: key})}>
+              <Text style={[styles.header]}>{db[key].title}</Text>
+              <Text style={[styles.subtitle2]}>{db[key].questions.length} cards</Text>
+            </TouchableOpacity>
+          )
+        }
+        </ScrollView>
       </View>
     )
   }
 
 }
-
 
 const mapStateToProps = (state)=> ({
     decks: state
