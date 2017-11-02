@@ -7,7 +7,7 @@ import {setLocalNotification,clearLocalNotification} from './utils/api.js'
 export default class App extends React.Component {
   componentDidMount() {
       setLocalNotification(Date.now()+5000,'minute');
-      //clearLocalNotification();
+      
   }
   render() {
     return (
